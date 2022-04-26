@@ -5,7 +5,7 @@ using namespace std;
 int main() {
     int n, N = 0;
     cin >> n;
-    int lections[2 * n];
+    int *lections = new int[2 * n];
     for (int i = 0; i < 2 * n; i++) {
         cin >> lections[i];
     }
@@ -16,6 +16,7 @@ int main() {
             N++;
         }
     }
+    delete [] lections;
     cout << N;
     return 0;
 }
