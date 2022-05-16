@@ -18,7 +18,7 @@ struct Stack {
         top = nullptr;
     }
     // gets value of the top element
-    int get() {
+    string get() {
         return top->value;
     }
     // adds new element on top
@@ -33,46 +33,46 @@ struct Stack {
         delete top;
         top = p;
     }
-    void translate(string val, string *out) {
+    // outputs or pushes element
+    void translate(string val) {
         if (val == "(") {
             push(val);
         } else if (val == ")") {
-            while (get() != "(") {
-                out = out + " " + get();
+            while (top != nullptr and get() != "(") {
+                cout << get() << " ";
                 pop();
             }
             pop();
         } else if (val == "+" or val == "-") {
-            while (get() == "+" or get() == "-" or get() == "*" or get() == "/") {
-                out = out + " " + get();
+            while (top != nullptr and (get() == "+" or get() == "-" or get() == "*" or get() == "/")) {
+                cout << get() << " ";
                 pop();
             }
             push(val);
         } else if (val == "*" or val == "/") {
-            while (get() == "*" or get() == "/") {
-                out = out + " " + get();
+            while (top != nullptr and (get() == "*" or get() == "/")) {
+                cout << get() << " ";
                 pop();
             }
             push(val);
         } else {
-            out = out + " " + val;
+            cout << val << " ";
         }
     }
 };
 
 int main() {
-    Stack stack = Stack(); 
-    string val, out = "";
+    Stack stack = Stack();
+    string val;
     int n;
     cin >> n;
     for (int i = 0; i < n; i++) {
         cin >> val;
-        stack.translate(val, out);
+        stack.translate(val);
     }
     while (stack.top != nullptr) {
-        out = out + " " + stack.get();
+        cout << stack.get() << " ";
         stack.pop();
     }
-    cout << out;
     return 0;
 }
