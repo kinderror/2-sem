@@ -37,6 +37,7 @@ struct Stack {
     bool check(string val) {
         if (val == "(") {
             push(val);
+            return true;
         } else if (val == ")") {
             if (top == nullptr) {
                 return false;
@@ -48,6 +49,7 @@ struct Stack {
             }
         } else if (val == "{") {
             push(val);
+            return true;
         } else if (val == "}") {
             if (top == nullptr) {
                 return false;
@@ -59,6 +61,7 @@ struct Stack {
             }
         } else if (val == "[") {
             push(val);
+            return true;
         } else if (val == "]") {
             if (top == nullptr) {
                 return false;
@@ -84,6 +87,10 @@ int main() {
             return 0;
         }
     }
-    cout << 0;
+    if (stack.top == nullptr) {
+        cout << 0;
+    } else {
+        cout << -1;
+    }
     return 0;
 }
