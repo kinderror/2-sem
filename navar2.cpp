@@ -37,5 +37,7 @@ int main() {
     }
     calc_optimals(prices, optimals, L, n);
     cuts(prices, optimals, L, n);
+    delete [] prices;
+    delete [] optimals;
     return 0;
 }
