@@ -25,5 +25,7 @@ int main() {
     }
     calc_optimals(prices, optimals, L, n);
     cout << optimals[L];
+    delete [] prices;
+    delete [] optimals;
     return 0;
 }
