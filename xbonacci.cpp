@@ -26,5 +26,6 @@ int main() {
         cin >> start[i];
     }
     xbonacci(start, size, n);
+    delete [] start;
     return 0;
 }
