@@ -10,7 +10,7 @@ void xbonacci(int *start, int size, int n) {
         num[size] += start[i];
     }
     for (int i = size + 1; i < n; i++) {
-        num[i] = 2 * num[i - 1] - n[i - size - 1];
+        num[i] = 2 * num[i - 1] - num[i - size - 1];
     }
     for (int i = 0; i < n; i++) {
         cout << num[i] << " ";
