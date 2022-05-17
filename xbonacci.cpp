@@ -3,6 +3,12 @@
 using namespace std;
 
 void xbonacci(int *start, int size, int n) {
+    if (n < size + 1) {
+        for (int i = 0; i < n; i++) {
+            cout << start[i] << " ";
+        }
+        return;
+    }
     int *num = new int[n];
     num[size] = 0;
     for (int i = 0; i < size; i++) {
@@ -16,7 +22,7 @@ void xbonacci(int *start, int size, int n) {
         cout << num[i] << " ";
     }
     delete [] num;
-} 
+}  
 
 int main() {
     int size, n;
