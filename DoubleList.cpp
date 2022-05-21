@@ -62,7 +62,7 @@ struct List {
     }
     // add new node with value new_val in front of i‘th node
     void insert(int new_val, int index) {
-        if (not 1 <= index <= size) {
+        if (not (1 <= index <= size)) {
             cout << "It's impossible to insert a new node here" << endl;
             return;
         }
@@ -85,7 +85,6 @@ struct List {
     int pop_back() {
         if (size == 0) {
             cout << "List is empty" << endl;
-            return;
         }
         int val = tail->value;
         if (size == 1) {
@@ -105,7 +104,6 @@ struct List {
     int pop_front() {
         if (size == 0) {
             cout << "List is empty" << endl;
-            return;
         }
         int val = head->value;
         if (size == 1) {
@@ -123,9 +121,8 @@ struct List {
     }
     // delete i‘th element
     void remove(int index) {
-        if (not 1 <= index <= size) {
+        if (not (1 <= index <= size)) {
             cout << "There is no node with this index to delete" << endl;
-            return;
         } else if (size == 1) {
             size--;
             delete head;
@@ -150,9 +147,8 @@ struct List {
     }
     // get the i‘th element by index
     int get(int index) {
-        if (not 1 <= index <= size) {
+        if (not (1 <= index <= size)) {
             cout << "There is no node with this index" << endl;
-            return;
         }
         Node *p = head;
         for (int i = 1; i < index; i++) {
