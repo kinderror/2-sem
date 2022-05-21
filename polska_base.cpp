@@ -17,19 +17,31 @@ struct Stack {
     Stack() {
         top = nullptr;
     }
+    // checks if stack is empty
+    bool empty() {
+        return top == nullptr;
+    }
     // gets value of the top element
-    string get() {
-        return top->value;
+    int get() {
+        if (empty()) {
+            cout << "Stack is empty" << endl;
+        } else { 
+            return top->value;
+        }
     }
     // adds new element on top
-    void push(string val) {
+    void push(int val) {
         Node *p = new Node(val);
         p->next = top;
         top = p;
     }
     // deletes the top element
     void pop() {
-        Node *p = &(*(top->next));
+        if (empty()) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        Node *p = top->next;
         delete top;
         top = p;
     }
@@ -38,10 +50,13 @@ struct Stack {
         if (val == "(") {
             push(val);
         } else if (val == ")") {
-            while (top != nullptr and get() != "(") {
+            while (not empty() and get() != "(") {
                 cout << get() << " ";
                 pop();
             }
+            if (empty()) {
+                cout << "Incorrect" << endl;
+                return;
             pop();
         } else if (val == "+" or val == "-") {
             while (top != nullptr and (get() == "+" or get() == "-" or get() == "*" or get() == "/")) {
@@ -71,6 +86,10 @@ int main() {
         stack.translate(val);
     }
     while (stack.top != nullptr) {
+        if (stack.get() == "(") {
+            cout << "Incorrect" << endl;
+            return 0;
+        }
         cout << stack.get() << " ";
         stack.pop();
     }
