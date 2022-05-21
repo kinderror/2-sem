@@ -16,7 +16,11 @@ struct Queue {
     }
     // gets value of the front element
     int peek() {
-        return data[0];
+        if (isempty()) {
+            cout << "Queue is empty" << endl;
+        } else {
+            return data[0];
+        }
     }
     // adds new element 
     void enqueue(int val) {
@@ -31,7 +35,10 @@ struct Queue {
     }
     // deletes the front element
     void dequeue() {
-        if (isempty()) return;
+        if (isempty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
         size--;
         int *temp = new int[size];
         for (int i = 0; i < size; i++) {
