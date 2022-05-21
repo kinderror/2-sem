@@ -57,6 +57,7 @@ struct Stack {
             if (empty()) {
                 cout << "Incorrect" << endl;
                 return;
+            }
             pop();
         } else if (val == "+" or val == "-") {
             while (top != nullptr and (get() == "+" or get() == "-" or get() == "*" or get() == "/")) {
