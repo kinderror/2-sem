@@ -22,7 +22,7 @@ struct Stack {
         return top == nullptr;
     }
     // gets value of the top element
-    int get() {
+    string get() {
         if (empty()) {
             cout << "Stack is empty" << endl;
         } else { 
@@ -30,7 +30,7 @@ struct Stack {
         }
     }
     // adds new element on top
-    void push(int val) {
+    void push(string val) {
         Node *p = new Node(val);
         p->next = top;
         top = p;
