@@ -22,7 +22,11 @@ struct Stack {
     }
     // gets value of the top element
     int get() {
-        return top->value;
+        if (empty()) {
+            cout << "Stack is empty" << endl;
+        } else { 
+            return top->value;
+        }
     }
     // adds new element on top
     void push(int val) {
@@ -32,7 +36,11 @@ struct Stack {
     }
     // deletes the top element
     void pop() {
-        Node *p = &(*(top->next));
+        if (empty()) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        Node *p = top->next;
         delete top;
         top = p;
     }
