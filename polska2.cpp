@@ -87,9 +87,10 @@ int main() {
         cin >> val;
         stack.calc(val);
     }
-    if (stack.top->next) {
+    if (stack.top == nullptr and stack.top->next == nullptr) {
         cout << stack.get();
     } else {
         cout << "Incorrect" << endl;
+    }
     return 0;
 }
