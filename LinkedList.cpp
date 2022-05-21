@@ -61,6 +61,7 @@ struct List {
         if (not 1 <= index <= size) {
             cout << "It's impossible to insert a new node here" << endl;
             return;
+        }
         Node *p_new = new Node(new_val);
         Node *p_front = head;
         if (index == 1) {
@@ -150,6 +151,7 @@ struct List {
         if (not 1 <= index <= size) {
             cout << "There is no node with this index" << endl;
             return;
+        }
         Node *p = head;
         for (int i = 1; i < index; i++) {
             p = p->next;
