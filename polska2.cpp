@@ -17,9 +17,17 @@ struct Stack {
     Stack() {
         top = nullptr;
     }
+    // checks if stack is empty
+    bool empty() {
+        return top == nullptr;
+    }
     // gets value of the top element
     int get() {
-        return top->value;
+        if (empty()) {
+            cout << "Stack is empty" << endl;
+        } else { 
+            return top->value;
+        }
     }
     // adds new element on top
     void push(int val) {
@@ -29,14 +37,22 @@ struct Stack {
     }
     // deletes the top element
     void pop() {
-        Node *p = &(*(top->next));
+        if (empty()) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        Node *p = top->next;
         delete top;
         top = p;
     }
     // pushes value or calculates
     void calc(string val) {
         if (top == nullptr or top->next == nullptr) {
-            push(stoi(val));
+            if (not (val == "+" or val == "-" or val == "*" or val == "/")) {
+                push(stoi(val));
+            } else {
+                cout << "Incorrect" << endl;
+            }
             return;
         }
         int a = top->value, b = top->next->value;
@@ -71,6 +87,9 @@ int main() {
         cin >> val;
         stack.calc(val);
     }
-    cout << stack.get();
+    if (stack.top->next) {
+        cout << stack.get();
+    } else {
+        cout << "Incorrect" << endl;
     return 0;
 }
