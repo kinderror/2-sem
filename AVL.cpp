@@ -1,26 +1,27 @@
 #include <iostream>
-#include <random>
 
 struct Node {
     int key;
     int height;
+    int value;
     Node *left;
     Node *right;
 };
 
-struct AVLBinTree {
-    Node *NIL;
+struct AVL_Tree {
     Node *root;
-
-    int height (Node *z) {
-        return (z != NIL) ? z->height : 0;
+    
+    // returnes height of node with pointer p
+    int height (Node *p) {
+        return p ? p->height : 0;
     }
-
-    int bfactor (Node *z) {
-        int a = 0;
-        if (z != NIL) a = height (z->right) - height(z->left);
-        return a;
+    // returnes b_factor of node with pointer p
+    int bfactor (Node *p) {
+        int bfactor = 0;
+        if (p != nullptr) bfactor = height(p->right) - height(p->left);
+        return bfactor;
     }
+    // 
 
     void fix_height (Node *z) {
         int hl = height(z->left);
@@ -125,34 +126,5 @@ struct AVLBinTree {
 };
 
 int main() {
-    Node *NIL = nullptr; //узлы будем хранить в векторе.
-    int key;
-    int n = 10;
-    AVLBinTree tree;
-    tree.NIL = NIL;
-    tree.root = NIL;
-    std::vector <Node> a(n);
-
-    std::random_device dev; //генерим n случайных ключей и печатаем их
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<int> dist(1, 100);
-
-    for (int i = 0; i < n; i++) {
-        key = dist(rng);
-        a[i].left = NIL;
-        a[i].right = NIL;
-        a[i].key = key;
-        std::cout << a[i].key << ' ';
-    }
-    std::cout << "-------------------------------------------------------------------------------------------" << '\n';
-    for (int i = 0; i < n; i++) {
-        tree.insert(&a[i]); //заполняем дерево и выводим его
-    }
-    tree.print(tree.root, 0);
-    std::cout << "-------------------------------------------------------------------------------------------" << '\n';
-    tree.remove(&a[1]); //удаляем элемент и выводим дерево
-    tree.print(tree.root, 0);
-    std::cout << "-------------------------------------------------------------------------------------------" << '\n';
-    std::cout << (tree.fmin(tree.root))->key << ' ' << (tree.fmax(tree.root))->key << '\n'; //выводим мин макс
     return 0;
 }
