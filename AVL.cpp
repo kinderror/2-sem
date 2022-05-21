@@ -71,14 +71,14 @@ struct AVL_Tree {
     void insert(Node *p) { 
         root = rec_insert(root, p);
     }
-
-    Node * search (Node *z, int key) { // поиск в ветке с родителем z по ключу key
-        if (z == NIL or key == z->key) return z;
-        if (key < z->key) return search(z->left, key);
-        else return search(z->right, key);
+    // finds node with needed key
+    Node *search(Node *p, int key) { 
+        if (p == nullptr or key == p->key) return p;
+        if (key < p->key) return search(p->left, key);
+        else return search(p->right, key);
     }
     // finds node with min key in subtree
-    Node *fmin(Node *p) { //поиск min max в ветке с родителем z
+    Node *fmin(Node *p) { 
         while (p->left != nullptr) p = p->left;
         return p;
     }
