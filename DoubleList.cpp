@@ -62,8 +62,12 @@ struct List {
     }
     // add new node with value new_val in front of i‘th node
     void insert(int new_val, int index) {
+        if (not 1 <= index <= size) {
+            cout << "It's impossible to insert a new node here" << endl;
+            return;
+        }
         Node *p_new = new Node(new_val);
-        Node *p = &(*head);
+        Node *p = head;
         if (index == 1) {
             push_front(new_val);
             return;
@@ -79,6 +83,10 @@ struct List {
     }
     // get the last element value and delete last element
     int pop_back() {
+        if (size == 0) {
+            cout << "List is empty" << endl;
+            return;
+        }
         int val = tail->value;
         if (size == 1) {
             size--;
@@ -95,6 +103,10 @@ struct List {
     }
     // get the front element value and delete front element
     int pop_front() {
+        if (size == 0) {
+            cout << "List is empty" << endl;
+            return;
+        }
         int val = head->value;
         if (size == 1) {
             size--;
@@ -111,22 +123,23 @@ struct List {
     }
     // delete i‘th element
     void remove(int index) {
-        if (size == 1) {
+        if (not 1 <= index <= size) {
+            cout << "There is no node with this index to delete" << endl;
+            return;
+        } else if (size == 1) {
             size--;
             delete head;
             head = nullptr;
             tail = nullptr;
             return;
-        }
-        if (index == 1) {
+        } else if (index == 1) {
             pop_front();
             return;
-        }
-        if (index == size) {
+        } else if (index == size) {
             pop_back();
             return;
         }
-        Node *p = &(*head);
+        Node *p = head;
         for (int i = 0; i < index - 2; i++) {
             p = p->next;
         }
@@ -137,7 +150,11 @@ struct List {
     }
     // get the i‘th element by index
     int get(int index) {
-        Node *p = &(*head);
+        if (not 1 <= index <= size) {
+            cout << "There is no node with this index" << endl;
+            return;
+        }
+        Node *p = head;
         for (int i = 1; i < index; i++) {
             p = p->next;
         }
