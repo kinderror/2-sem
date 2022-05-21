@@ -3,109 +3,87 @@
 
 struct Node {
     int key;
+    int value;
     Node *left;
     Node *right;
     Node *par;
 };
 
-struct BinTree {
-    Node *NIL;
+struct SimpleTree {
     Node *root;
-
-    Node * search (Node *z, int key) { // поиск в ветке с родителем z по ключу key
-        if (z == NIL or key == z->key) return z;
-        else if (key < z->key) return search(z->left, key);
-        else return search(z->right, key);
+    
+    // searches node with needed key
+    Node *search(int key) { 
+        if (root == nullptr or key == root->key) {
+            return root;
+        } else if (key < root->key) {
+            return search(root->left, key);
+        } else {
+            return search(root->right, key);
+        }
     }
-
-    Node * min (Node *z) { //поиск min max в ветке с родителем z
-        while (z->left != NIL) z = z->left;
-        return z;
+    // searches node with min key in subtree with sub_root = p
+    Node *min(Node *p) { 
+        while (p->left != nullptr) p = p->left;
+        return p;
     }
-
-    Node * max (Node *z) {
-        while (z->right != NIL) z = z->right;
-        return z;
+    // searches node with max key in subtree with sub_root = p
+    Node *max(Node *p) {
+        while (p->right != nullptr) p = p->right;
+        return p;
     }
-
-    void insert (Node *z) { //вставка узла z с потомками NIL.
-        Node *y = NIL;
-        Node *x = this->root;
-        while (x != NIL) {
+    // insertion of node p with left = right = nullptr
+    void insert (Node *p) { 
+        Node *y = nullptr;
+        Node *x = root;
+        while (x != nullptr) {
             y = x;
-            if (z->key < x->key) x = x->left;
-            else x = x->right;
-        }
-        z->par = y;
-        if (y == NIL) this->root = z;
-        else if (z->key < y->key) y->left = z;
-        else y->right = z;
-    }
-
-    void transplant (Node *z1, Node *z2) { // Вместе ветки с роидетелм z1 ставит ветку z2
-        if (z1->par == NIL) this->root = z2;
-        else if (z1 == (z1->par)->left) (z1->par)->left = z2;
-        else (z1->par)->right = z2;
-        if (z2 != NIL) z2->par = z1->par;
-    }
-
-    void remove (Node *z) { // удаление по указателю на узел
-        if (z->left == NIL) transplant(z, z->right);
-        else if (z->right == NIL) transplant(z, z->left);
-        else {
-            Node *y = min(z->right);
-            if (y->par != z) {
-                transplant(y, y->right);
-                y->right = z->right;
-                (y->right)->par = y;
+            if (p->key < x->key) {
+                x = x->left;
+            } else {
+                x = x->right;
             }
-            transplant(z, y);
-            y->left = z->left;
-            (y->left)->par = y;
         }
-
+        p->par = y;
+        if (y == nullptr) {
+            root = p;
+        } else if (p->key < y->key) {
+            y->left = p;
+        } else {
+            y->right = p;
+        }
     }
-    void print(Node *z, int level)  //вывод дерева(в 1 столбике 1 уровень, во втором-второй и тд). При несбалансированном дереве может быть не оч красивым, но структуру сохранит
-    {
-        if(z != NIL)
-        {
-            print(z->left,level + 1);
-            for(int i = 0;i< level;i++) std::cout << "   ";
-            std::cout << z->key << '\n';
-            print(z->right,level + 1);
+    // replaces subtrees
+    void transplant (Node *root1, Node *root2) { 
+        if (root1->par == nullptr) {
+            root = root2;
+        } else if (root1 == root1->par->left) {
+            root1->par->left = root2;
+        } else {
+            root1->par->right = root2;
+        }
+        if (root2 != nullptr) root2->par = root1->par;
+    }
+    // deletes node with pointer p
+    void remove (Node *p) { 
+        if (p->left == nullptr) {
+            transplant(p, p->right);
+        } else if (p->right == nullptr) {
+            transplant(p, p->left);
+        } else {
+            Node *y = min(p->right);
+            if (y->par != p) {
+                transplant(y, y->right);
+                y->right = p->right;
+                y->right->par = y;
+            }
+            transplant(p, y);
+            y->left = p->left;
+            y->left->par = y;
         }
     }
 };
 
 int main() {
-    Node *NIL = nullptr; //узлы будем хранить в векторе.
-    int key;
-    int n = 10;
-    BinTree tree;
-    tree.NIL = NIL;
-    tree.root = NIL;
-    std::vector <Node> a(n);
-
-    std::random_device dev; //генерим n случайных ключей и печатаем их
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<int> dist(1, 100);
-
-    for (int i = 0; i < n; i++) {
-        key = dist(rng);
-        a[i].left = NIL;
-        a[i].right = NIL;
-        a[i].key = key;
-        std::cout << a[i].key << ' ';
-    }
-    std::cout << "-------------------------------------------------------------------------------------------" << '\n';
-    for (int i = 0; i < n; i++) {
-        tree.insert(&a[i]); //заполняем дерево и выводим его
-    }
-    tree.print(tree.root, 0);
-    std::cout << "-------------------------------------------------------------------------------------------" << '\n';
-    tree.remove(&a[1]); //удаляем элемент и выводим дерево
-    tree.print(tree.root, 0);
-    std::cout << "-------------------------------------------------------------------------------------------" << '\n';
-    std::cout << (tree.min(tree.root))->key << ' ' << (tree.max(tree.root))->key << '\n'; //выводим мин макс
     return 0;
 }
