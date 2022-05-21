@@ -85,6 +85,7 @@ struct List {
     int pop_back() {
         if (size == 0) {
             cout << "List is empty" << endl;
+            return 0;
         }
         int val = tail->value;
         if (size == 1) {
@@ -104,6 +105,7 @@ struct List {
     int pop_front() {
         if (size == 0) {
             cout << "List is empty" << endl;
+            return 0;
         }
         int val = head->value;
         if (size == 1) {
@@ -123,6 +125,7 @@ struct List {
     void remove(int index) {
         if (not (1 <= index <= size)) {
             cout << "There is no node with this index to delete" << endl;
+            return;
         } else if (size == 1) {
             size--;
             delete head;
@@ -149,6 +152,7 @@ struct List {
     int get(int index) {
         if (not (1 <= index <= size)) {
             cout << "There is no node with this index" << endl;
+            return 0;
         }
         Node *p = head;
         for (int i = 1; i < index; i++) {
